@@ -8,6 +8,9 @@ public class CatController : MonoBehaviour
     private Rigidbody2D m_rigidbody;
     private bool grounded = true;
 
+    public SpriteRenderer m_sprite_renderer;
+    public Animator m_animator;
+
     [SerializeField] float move_speed = 0.5f;
     [SerializeField] float jump_force = 5;
     [SerializeField] public float gravity = 20.0f;
@@ -26,12 +29,21 @@ public class CatController : MonoBehaviour
             Debug.Log("Right Key Pressed");
 
             transform.Translate(Vector3.right * move_speed * Time.deltaTime);
+            m_animator.SetFloat("speed", 1);
+            m_sprite_renderer.flipX = false;
         }
 
         else if (Input.GetKey(KeyCode.LeftArrow))
         {
             Debug.Log("Left Key Pressed");
             transform.Translate(Vector3.left * move_speed * Time.deltaTime);
+            m_animator.SetFloat("speed", 1);
+            m_sprite_renderer.flipX = true;
+        }
+
+        else
+        {
+            m_animator.SetFloat("speed", 0);
         }
 
 
@@ -48,6 +60,7 @@ public class CatController : MonoBehaviour
         if (grounded == true)
         {
             grounded = false;
+            m_animator.SetBool("grounded", false);
             m_rigidbody.AddForce(Vector2.up * jump_force);
         }
     }
@@ -55,6 +68,7 @@ public class CatController : MonoBehaviour
     void OnLand()
     {
         grounded = true;
+        m_animator.SetBool("grounded", true);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
