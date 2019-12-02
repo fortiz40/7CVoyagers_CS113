@@ -9,6 +9,7 @@ TagManager:
   - RatTop
   - RatDamageBox
   - Rat
+  - CatHitBox
   layers:
   - Default
   - TransparentFX

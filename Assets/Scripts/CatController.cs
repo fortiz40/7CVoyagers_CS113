@@ -10,6 +10,10 @@ public class CatController : MonoBehaviour
     private Rigidbody2D m_rigidbody;
     private bool grounded = true;
 
+    public int score = 0;
+    public int health = 5;
+
+
     public SpriteRenderer m_sprite_renderer;
     public Animator m_animator;
 
@@ -89,10 +93,24 @@ public class CatController : MonoBehaviour
     /// </summary>
     void OnRatKill()
     {
+        score++;
         OnLand();
         m_rigidbody.velocity = Vector2.zero;
         OnJump(0.75f);
     }
+
+
+    void OnDamaged()
+    {
+        health--;
+
+
+        if (health == 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
 
     /// <summary>
     /// Function called when a gameObject collides with this gameObject
@@ -118,6 +136,7 @@ public class CatController : MonoBehaviour
         else if (collision_tag == "RatDamageBox")
         {
             Debug.Log("RAT HAS HIT THE CAT");
+            OnDamaged();
         }
    
     }
