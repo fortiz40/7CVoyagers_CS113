@@ -906,11 +906,21 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6343868738216394104, guid: 993f2036206624fc590c931515e0e99a,
+        type: 3}
+      propertyPath: m_CullTransparentMesh
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6343868738216394107, guid: 993f2036206624fc590c931515e0e99a,
         type: 3}
       propertyPath: CatPlayer
       value: 
       objectReference: {fileID: 690330598}
+    - target: {fileID: 6343868738646645732, guid: 993f2036206624fc590c931515e0e99a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 993f2036206624fc590c931515e0e99a, type: 3}
 --- !u!1001 &937698659
