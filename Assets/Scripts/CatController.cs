@@ -5,6 +5,8 @@ using UnityEngine;
 public class CatController : MonoBehaviour
 {
 
+    private bool MOVE_DEBUG = false;
+
     private Rigidbody2D m_rigidbody;
     private bool grounded = true;
 
@@ -26,7 +28,7 @@ public class CatController : MonoBehaviour
     {
 
         if (Input.GetKey(KeyCode.RightArrow)) {
-            Debug.Log("Right Key Pressed");
+            if (MOVE_DEBUG) Debug.Log("Right Key Pressed");
 
             transform.Translate(Vector3.right * move_speed * Time.deltaTime);
             m_animator.SetFloat("speed", 1);
@@ -35,10 +37,10 @@ public class CatController : MonoBehaviour
 
         else if (Input.GetKey(KeyCode.LeftArrow))
         {
-            Debug.Log("Left Key Pressed");
+            if (MOVE_DEBUG) Debug.Log("Left Key Pressed");
             transform.Translate(Vector3.left * move_speed * Time.deltaTime);
             m_animator.SetFloat("speed", 1);
-            m_sprite_renderer.flipX = true;
+            m_sprite_renderer.flipX = true; 
         }
 
         else
@@ -49,35 +51,73 @@ public class CatController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Space))
         {
-            Debug.Log("Space Pressed");
+            if (MOVE_DEBUG) Debug.Log("Space Pressed");
             OnJump();
         }
 
     }
 
+    /// <summary>
+    /// Function to be called when the cat jumps
+    /// </summary>
     void OnJump()
+    {
+        OnJump(1.0f);
+    }
+
+    private void OnJump(float max_height)
     {
         if (grounded == true)
         {
             grounded = false;
             m_animator.SetBool("grounded", false);
-            m_rigidbody.AddForce(Vector2.up * jump_force);
+            m_rigidbody.AddForce(Vector2.up * jump_force * max_height);
         }
     }
 
+    /// <summary>
+    /// Function to be called when rat lands on the ground
+    /// </summary>
     void OnLand()
     {
         grounded = true;
         m_animator.SetBool("grounded", true);
     }
+    
+    /// <summary>
+    /// Function to be called when the cat lands on rat to kill it
+    /// </summary>
+    void OnRatKill()
+    {
+        OnLand();
+        m_rigidbody.velocity = Vector2.zero;
+        OnJump(0.75f);
+    }
 
+    /// <summary>
+    /// Function called when a gameObject collides with this gameObject
+    /// </summary>
+    /// <param name="collision"></param>
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log(collision.gameObject.tag);
+        Debug.Log(collision.collider.gameObject.tag);
 
-        if (collision.gameObject.tag == "Ground")
+        string collision_tag = collision.collider.gameObject.tag;
+
+        if (collision_tag == "Ground")
         {
             OnLand();
+        }
+
+        else if (collision_tag == "RatTop")
+        {
+            Debug.Log("LANDED ON TOP OF RAT!");
+            OnRatKill();
+        }
+
+        else if (collision_tag == "RatDamageBox")
+        {
+            Debug.Log("RAT HAS HIT THE CAT");
         }
    
     }

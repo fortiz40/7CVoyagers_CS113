@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Ground
   - Cat
+  - RatTop
+  - RatDamageBox
+  - Rat
   layers:
   - Default
   - TransparentFX
