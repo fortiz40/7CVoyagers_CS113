@@ -33,8 +33,9 @@ public class CatController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.RightArrow)) {
             if (MOVE_DEBUG) Debug.Log("Right Key Pressed");
-
+            //m_rigidbody.velocity = Vector2.right * move_speed;
             transform.Translate(Vector3.right * move_speed * Time.deltaTime);
+            
             m_animator.SetFloat("speed", 1);
             m_sprite_renderer.flipX = false;
         }
@@ -43,9 +44,17 @@ public class CatController : MonoBehaviour
         {
             if (MOVE_DEBUG) Debug.Log("Left Key Pressed");
             transform.Translate(Vector3.left * move_speed * Time.deltaTime);
+            //m_rigidbody.velocity = Vector2.left * move_speed;
             m_animator.SetFloat("speed", 1);
             m_sprite_renderer.flipX = true; 
         }
+
+        else if (Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.LeftArrow) )
+        {
+            //m_rigidbody.velocity = Vector2.zero;
+            m_animator.SetFloat("speed", 0);
+        }
+
 
         else
         {
@@ -53,7 +62,7 @@ public class CatController : MonoBehaviour
         }
 
 
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             if (MOVE_DEBUG) Debug.Log("Space Pressed");
             OnJump();
@@ -82,7 +91,7 @@ public class CatController : MonoBehaviour
     /// <summary>
     /// Function to be called when rat lands on the ground
     /// </summary>
-    void OnLand()
+    public void OnLand()
     {
         grounded = true;
         m_animator.SetBool("grounded", true);
@@ -91,7 +100,7 @@ public class CatController : MonoBehaviour
     /// <summary>
     /// Function to be called when the cat lands on rat to kill it
     /// </summary>
-    void OnRatKill()
+    public void OnRatKill()
     {
         score++;
         OnLand();
@@ -122,18 +131,7 @@ public class CatController : MonoBehaviour
 
         string collision_tag = collision.collider.gameObject.tag;
 
-        if (collision_tag == "Ground")
-        {
-            OnLand();
-        }
-
-        else if (collision_tag == "RatTop")
-        {
-            Debug.Log("LANDED ON TOP OF RAT!");
-            OnRatKill();
-        }
-
-        else if (collision_tag == "RatDamageBox")
+        if (collision_tag == "RatDamageBox")
         {
             Debug.Log("RAT HAS HIT THE CAT");
             OnDamaged();

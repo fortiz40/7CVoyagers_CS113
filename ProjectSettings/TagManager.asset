@@ -10,6 +10,7 @@ TagManager:
   - RatDamageBox
   - Rat
   - CatHitBox
+  - CatFeet
   layers:
   - Default
   - TransparentFX
@@ -26,7 +27,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Background
   - 
   - 
   - 
@@ -46,4 +47,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Ship
+    uniqueID: 2385271483
     locked: 0

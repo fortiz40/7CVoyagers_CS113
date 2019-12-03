@@ -20,7 +20,7 @@ public class RatTopController : MonoBehaviour
     {
         string colliderTag = collision.collider.tag;
         Debug.Log("RAT TOP COLLIDED WITH" + colliderTag);
-        if (colliderTag == "Cat")
+        if (colliderTag == "CatFeet")
         {
             Destroy(transform.parent.gameObject);
         }
