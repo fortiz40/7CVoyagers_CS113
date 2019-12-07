@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CatController : MonoBehaviour
 {
@@ -103,6 +104,12 @@ public class CatController : MonoBehaviour
     public void OnRatKill()
     {
         score++;
+
+        if ( score == 20)
+        {
+            SceneManager.LoadScene("Start Menu");
+        }
+
         OnLand();
         m_rigidbody.velocity = Vector2.zero;
         OnJump(0.75f);
@@ -114,9 +121,9 @@ public class CatController : MonoBehaviour
         health--;
 
 
-        if (health == 0)
+        if (health < 1)
         {
-            Destroy(gameObject);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 

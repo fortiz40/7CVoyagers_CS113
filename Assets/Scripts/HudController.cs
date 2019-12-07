@@ -18,6 +18,6 @@ public class HudController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        HUD.text = "Score: " + CatPlayer.GetComponent<CatController>().score + "/10\nHealth: " + CatPlayer.GetComponent<CatController>().health + "/5";
+        HUD.text = "Score: " + CatPlayer.GetComponent<CatController>().score + "/20\nHealth: " + CatPlayer.GetComponent<CatController>().health + "/5";
     }
 }
