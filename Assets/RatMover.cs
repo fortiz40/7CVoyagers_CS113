@@ -35,7 +35,7 @@ public class RatMover : MonoBehaviour
     {
         while (true)
         {
-            Debug.Log("FLIPPING DIRECTION");
+            //Debug.Log("FLIPPING DIRECTION");
             if (status == Movement.RIGHT_STOPPED)
             {
                 status = Movement.LEFT;

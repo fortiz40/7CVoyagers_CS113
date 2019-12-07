@@ -14,6 +14,7 @@ public class CatController : MonoBehaviour
     public int score = 0;
     public int health = 5;
 
+    public GameObject victoryUI;
 
     public SpriteRenderer m_sprite_renderer;
     public Animator m_animator;
@@ -26,6 +27,7 @@ public class CatController : MonoBehaviour
     void Start()
     {
         m_rigidbody = GetComponent<Rigidbody2D>();
+
     }
 
     // Update is called once per frame
@@ -105,9 +107,11 @@ public class CatController : MonoBehaviour
     {
         score++;
 
-        if ( score == 20)
+        if ( score == 1)
         {
-            SceneManager.LoadScene("Start Menu");
+            victoryUI.SetActive(true);
+            Time.timeScale = 0;
+            //SceneManager.LoadScene("Start Menu");
         }
 
         OnLand();
